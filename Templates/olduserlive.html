@@ -1,0 +1,127 @@
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+{% block content%}
+<!-- <body onload="init()">
+    <div class="container">
+      <div>{{text}}</div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <h5 class="card-header h5 text-center">Face Recognition</h5>
+            <div class="card-body">
+              <div class="booth" style="display: flex; justify-content: center">
+                <video
+                  id="video"
+                  width="70%"
+                  height="70%"
+                  autoplay
+                  style="margin: 0 auto"
+                  onclick="snapshot(this);"
+                ></video>
+              </div>
+  
+              <div class="text-center my-3">
+                <a href="#!" class="btn btn-danger" onClick="stop()">
+                  Stop Cam
+                </a>
+                <a href="#!" class="btn btn-success" onClick="start()">
+                  Start Cam
+                </a>
+                <a href="#!" class="btn btn-dark" onclick="snapshot()"
+                  >Capture Image</a>
+              </div>
+            </div>
+            <h5 style="text-align:center; margin-bottom:20px;">Your Image :</h5>
+            <p id="msg" style="text-align:center;" color="white">{{msg}}</p>
+            <div>
+              <p id="msg1"></p>
+              <p id="msg2"></p>
+            </div>
+            <div width="1080" height="520">
+              <canvas style="display:block; margin:0 auto;" id="myCanvas" width="1280" height="720"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>{{msg}}</div>
+  <script>
+    var stop = function () {
+      var stream = video.srcObject;
+      var tracks = stream.getTracks();
+      for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        track.stop();
+      }
+      video.srcObject = null;
+    };
+    var start = function () {
+      var video = document.getElementById("video"),
+        vendorUrl = window.URL || window.webkitURL;
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true,video: { width: 1280, height: 720 } })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            console.log("Something went wrong!");
+          });
+      }
+    };
+    $(function () {
+      start();
+    });
+
+    var canvas, ctx;
+
+    function init() {
+      canvas = document.getElementById("myCanvas");
+      ctx = canvas.getContext("2d");
+    }
+
+    function snapshot() {
+      video = document.querySelector("video");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var dataURL = canvas.toDataURL("image/jpg", 1.0);
+      
+      var curr_url = location.href;
+      downloadImage(dataURL, "Test.jpg");
+      location.replace(curr_url+"/test");
+    }
+
+    function downloadImage(data, filename = "untitled.jpeg") {
+      var a = document.createElement("a");
+      a.href = data;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+    }
+
+    let msgg = document.getElementById('msg').innerText;
+    if(msgg.length>0){
+      msgg = msgg.split("0");
+      document.getElementById('msg1').innerText = `Name of identified Person: ${msgg[0]}`;
+      document.getElementById('msg2').innerText = `Accuracy: ${msgg[1]}`;
+
+    }
+    else{
+      alert("no msg!")
+    }
+</script> -->
+<div class="text-center my-3">
+  <a href="/live/train" class="btn btn-dark">Train</a>
+</div>
+<br>
+ <div class="mx-auto" style="width: 700px;">
+  <img src="{{ url_for('videofeed') }}">
+</div>
+
+<br><br>
+<div class="mx-auto" style="width: 150px;">
+  <a href="http://127.0.0.1:5000/">
+   <!-- <button type="button" class="btn btn-success">Upload New image</button> -->
+</a>
+</div>
+<!-- <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021 by sonu</p> -->
+{% endblock %}

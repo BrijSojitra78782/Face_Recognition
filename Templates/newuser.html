@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content%}
+
+<body onload="init()">
+  <div class="container">
+    <div>{{text}}</div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <h5 class="card-header h5 text-center">New User Registration</h5>
+          <div style="text-align:center">
+            <div style="display: flex; justify-content:center; margin-top:15px;">
+              <h5 style="text-align:center;">Image Count : </h5>
+              &nbsp; &nbsp;
+              <h5 id="image_count" style="text-align:center;"> 0</h5>
+            </div>
+
+            <div class="form">
+                <input type="text" name="name" id="name_newuser" placeholder="Enter your name">
+                <button id="submit_button">Submit Name</button>
+            </div>
+
+          </div>
+          <div class="card-body">
+            <div class="booth" style="display: flex; justify-content: center">
+              <video id="video" width="70%" height="70%" autoplay style="margin: 0 auto"
+                onclick="snapshot(this);"></video>
+            </div>
+
+            <div class="text-center my-3">
+              <a href="#!" class="btn btn-danger" onClick="stop()">
+                Stop Cam
+              </a>
+              <a href="#!" class="btn btn-success" onClick="start()">
+                Start Cam
+              </a>
+              <a href="#!" class="btn btn-dark" onclick="snapshot()">Capture Image</a>
+            </div>
+          </div>
+          <h5 style="text-align:center; margin-bottom:20px;">Your Recent Screenshot :</h5>
+          <p>
+            <canvas style="display:block; margin:0 auto;" id="myCanvas" width="1280" height="720"
+              style="margin: 0 auto;"></canvas>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var image_count = 0
+    var name="Guest";
+    var stop = function () {
+      var stream = video.srcObject;
+      var tracks = stream.getTracks();
+      for (var i = 0; i < tracks.length; i++) {
+        var track = tracks[i];
+        track.stop();
+      }
+      video.srcObject = null;
+    };
+    var start = function () {
+      var video = document.getElementById("video"),
+        vendorUrl = window.URL || window.webkitURL;
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true, video: { width: 1280, height: 720 } })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            console.log("Something went wrong!");
+          });
+      }
+    };
+    $(function () {
+      start();
+    });
+
+    var canvas, ctx;
+
+    function init() {
+      canvas = document.getElementById("myCanvas");
+      ctx = canvas.getContext("2d");
+    }
+
+    function snapshot() {
+      video = document.querySelector("video");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      var dataURL = canvas.toDataURL("image/jpg", 0.5);
+      downloadImage(dataURL, "Sample.jpg");
+      image_count += 1;
+      document.getElementById("image_count").innerHTML = image_count;
+      if (image_count === 6) {
+        const person_name = name;
+
+        var curr_url = location.href;
+        curr_url = curr_url.slice(0, -2)
+        location.replace(curr_url + "/" + person_name);
+      }
+    }
+
+    function downloadImage(data, filename = "untitled.jpeg") {
+      var a = document.createElement("a");
+      a.href = data;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+    }
+
+    // let name;
+    document.getElementById('submit_button').addEventListener('click',()=>{
+      name=document.getElementById('name_newuser').value;
+    })
+  </script>
+</body>
+{% endblock %}

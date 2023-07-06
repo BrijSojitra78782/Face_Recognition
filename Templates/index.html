@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+{% block content%}
+  <h1 style="text-align:center; color:green;">Face Recognition</h1>
+  <h4 style="text-align: center;">Innovative Assignment</h4>
+  <div class="name" style="margin: 30px auto; text-align:center ; display:block;">
+    <h3>Roll No. & Names of Group Members:</h3>
+    <h5>20BCE031 Bhargav Patel</h5>
+    <h5>20BCE029 Vasu Beldaiya</h5>
+    <h5>20BCE035 Brij Sojitra</h5>
+    <h5>20BCE009 Akshay Tarpara</h5>
+    <h5>20BCE008 Aarya Ahjolia</h5>
+  </div>
+  <div style="text-align: center;">
+    <p>In this website there are three webpages</p>
+    <p>The first webpage is for old user. Here, the user whose data is already within the local database will capture an image, The model will be then trained and respective name and probability will be displayed.</p>
+    <p>The second webpage is for new user registration, Here the new user captures 6 images and then, We will save that images in our local database.</p>
+    <p>The third webpage is for old user with live webcam.</p>
+  </div>
+  <div>{{msg}}</div>
+{% endblock %}

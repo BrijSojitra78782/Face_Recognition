@@ -1,0 +1,12 @@
+Highlight in navbar 
+Remove extra text
+Thumbnail view of prediction
+set image count on top in new user
+popup for new user
+text field for new user name 
+
+Reduce time in training 
+reduce sleep time in test
+
+Extra:
+ss for each click
